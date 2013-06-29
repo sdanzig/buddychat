@@ -9,18 +9,22 @@ class BuddyActor extends Actor {
 
   val rand = new Random(System.currentTimeMillis()+self.path.hashCode);
 
+  // BuddyActors only respond to messages from the user
   def receive = {
-    case Message(msg) if sender.path.name.equals("user") => {
+    case Speak(msg) if sender.path.name.equals("user") => {
       log.debug("Buddy {} received {}", self.path.name, msg)
       rand.nextInt(3) match {
-        case 0 => { context.parent ! Message(msg+" sounds good!") }
-        case 1 => { context.parent ! Message(msg+" sounds bad!") }
-        case 2 => { context.parent ! Message("I don't care about "+msg) }
+        case 0 => { context.parent ! Speak(msg+" sounds good!") }
+        case 1 => { context.parent ! Speak(msg+" sounds bad!") }
+        case 2 => { context.parent ! Speak("I don't care about "+msg) }
       }
     }
-    case Message(msg) => {
-//      log.warning("BuddyActor ignored message "+msg+" from another buddy.")
+    case Speak(msg) => {
+      log.debug("BuddyActor ignored speaking of "+msg+" from another buddy.")
     }
-    case _ => log.warning("BuddyActor received unknown message.")
+    case Begin => {
+      log.debug("BuddyActor ignored begin instruction.")
+    }
+    case _ => log.warning("BuddyActor ignored message.")
   }
 }

@@ -3,6 +3,12 @@ package scottdanzig.buddychat.actors
 import akka.actor.Actor
 import akka.event.Logging
 
+/**
+ * This actor will accept user input from the console.
+ * If this was left to the user actor, getLines would block
+ * the thread, and the user would be unable to send or
+ * receive messages.
+ */
 class ConsoleActor extends Actor {
   val log = Logging(context.system, this)
 
@@ -28,5 +34,3 @@ or done, to exit this program!"""
     context.parent ! MessageFromConsole("done")
   }
 }
-
-case class EnableConsole

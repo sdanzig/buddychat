@@ -29,18 +29,15 @@ class UserActor extends Actor {
           context.parent ! StartChat
         }
         case _ => {
-          context.parent ! Message(msgFromConsole)
+          context.parent ! Speak(msgFromConsole)
           log.debug("Message from console received: {}",msgFromConsole)
         }
       }
     }
-    case Message(text) => {
+    case Speak(text) => {
       val labeledText = sender.path.name+": "+text
       println(labeledText)
     }
     case _ => log.warning("UserActor received unknown message.")
   }
 }
-
-case class Begin
-case class MessageFromConsole(text: String)
