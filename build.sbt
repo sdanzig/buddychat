@@ -1,4 +1,4 @@
-name := "actorchat"
+name := "buddychat"
 
 version := "1.0"
 

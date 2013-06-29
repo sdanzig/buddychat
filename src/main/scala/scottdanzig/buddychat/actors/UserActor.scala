@@ -34,8 +34,9 @@ class UserActor extends Actor {
         }
       }
     }
-    case Message(msg) => {
-      println(msg)
+    case Message(text) => {
+      val labeledText = sender.path.name+": "+text
+      println(labeledText)
     }
     case _ => log.warning("UserActor received unknown message.")
   }

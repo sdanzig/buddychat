@@ -43,7 +43,7 @@ class ChatManager extends Actor with FSM[State, Data] {
     case Event(Message(text), chatData @ ChatData(chatters, msgsSoFar)) => {
       log.debug("Message({}) event received while in ChatOnline state. chatData={}", text, chatData)
       val labeledText = sender.path.name+": "+text
-      (chatters diff List(sender)).foreach(_ forward Message(labeledText))
+      (chatters diff List(sender)).foreach(_ forward Message(text))
       stay using ChatData(chatters, msgsSoFar :+ labeledText)
     }
     case Event(StopChat, ChatData(chatters, _)) => {
@@ -55,9 +55,10 @@ class ChatManager extends Actor with FSM[State, Data] {
   whenUnhandled {
     case Event(KillChat, ChatData(_, msgsIfAny)) => {
       log.info("Chat shutting down")
-      println("Shutting down. Chat log is as follows:")
+      println("Shutting down...\n\n"+
+        "-- Begin server chat log --")
       msgsIfAny.foreach(println(_))
-      println("End chat log")
+      println("-- End server chat log --")
       context.system.shutdown
       stay
     }
