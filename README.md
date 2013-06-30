@@ -23,6 +23,7 @@ input, freeing up the UserActor to respond to incoming Speak messages.
 
 Sample output from BuddyChat:
 
+```
 Please type something for your buddies and press enter!
 Or, you can type:
 stop, to disable chat
@@ -50,3 +51,4 @@ buddy3: the sky sounds bad!
 buddy2: the sky sounds good!
 -- End server chat log --
 [INFO] [06/30/2013 02:24:39.345] [default-akka.actor.default-dispatcher-7] [akka://default/user/manager] Chat shutting down
+```
