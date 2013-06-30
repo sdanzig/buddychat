@@ -42,8 +42,8 @@ class ChatManager extends Actor with FSM[State, Data] {
   when(ChatOnline) {
     case Event(Speak(text), chatData @ ChatData(chatters, msgsSoFar)) => {
       log.debug("Message({}) event received while in ChatOnline state. chatData={}", text, chatData)
-      val labeledText = sender.path.name+": "+text
       (chatters diff List(sender)).foreach(_ forward Speak(text))
+      val labeledText = sender.path.name+": "+text
       stay using ChatData(chatters, msgsSoFar :+ labeledText)
     }
     case Event(StopChat, ChatData(chatters, _)) => {
