@@ -38,7 +38,7 @@ buddy3: the sky sounds bad!
 buddy2: the sky sounds good!
 done
 Shutting down...
- 
+
 -- Begin server chat log --
 user: chicken
 buddy1: chicken sounds bad!
