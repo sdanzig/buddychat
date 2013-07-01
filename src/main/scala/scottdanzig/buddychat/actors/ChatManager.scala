@@ -31,7 +31,7 @@ class ChatManager extends Actor with FSM[State, Data] {
   onTransition {
     case ChatOffline -> ChatOnline => {
       for((Uninitialized, ChatData(chatters, _)) <- Some(stateData, nextStateData)) {
-        chatters.foreach(_ ! Begin)
+        chatters.foreach(_ ! Begin())
       }
     }
   }
@@ -65,9 +65,10 @@ class ChatManager extends Actor with FSM[State, Data] {
       context.system.shutdown
       stay
     }
-    case Event(e, s) =>
+    case Event(e, s) => {
       log.warning("received unhandled request {} in state {}/{}", e, stateName, s)
       stay
+    }
   }
 }
 
