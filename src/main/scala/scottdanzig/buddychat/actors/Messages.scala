@@ -12,11 +12,11 @@ sealed trait ChatParticipantSystemMessage extends UserSystemMessage
 // Messages for the actor responsible for retrieving user input
 sealed trait ConsoleSystemMessage
 
-case class CreateChat extends ChatManagementSystemMessage
-case class StartChat extends ChatManagementSystemMessage
-case class StopChat extends ChatManagementSystemMessage
-case class KillChat extends ChatManagementSystemMessage
-case class Begin extends ChatParticipantSystemMessage
+case class CreateChat() extends ChatManagementSystemMessage
+case class StartChat() extends ChatManagementSystemMessage
+case class StopChat() extends ChatManagementSystemMessage
+case class KillChat() extends ChatManagementSystemMessage
+case class Begin() extends ChatParticipantSystemMessage
 case class Speak(text: String) extends ChatParticipantSystemMessage with ChatManagementSystemMessage
 case class MessageFromConsole(text: String) extends UserSystemMessage
-case class EnableConsole extends ConsoleSystemMessage
+case class EnableConsole() extends ConsoleSystemMessage
