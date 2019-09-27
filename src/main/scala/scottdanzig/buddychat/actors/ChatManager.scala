@@ -62,7 +62,7 @@ class ChatManager extends Actor with FSM[State, Data] {
         "-- Begin server chat log --")
       msgsIfAny.foreach(println(_))
       println("-- End server chat log --")
-      context.system.shutdown
+      context.system.terminate()
       stay
     }
     case Event(e, s) => {
